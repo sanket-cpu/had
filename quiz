@@ -1,0 +1,49 @@
+import 'package:flutter/material.dart'; 
+void main() => runApp(MaterialApp( 
+home: Scaffold( 
+appBar: AppBar(title: Text('QUIZ'), centerTitle: true), 
+body: QuizPage(), 
+), 
+)); 
+class Question { 
+f
+ inal String text; 
+f
+ inal bool answer; 
+Question({required this.text, required this.answer}); 
+} 
+class QuizPage extends StatefulWidget { 
+@override 
+State<QuizPage> createState() => _QuizPageState(); 
+} 
+class _QuizPageState extends State<QuizPage> { 
+int index = 0, score = 0; 
+List<Question> questions = [ 
+Question(text: "Is the Earth flat?", answer: false), 
+Question(text: "Was the first computer called ENIAC?", answer: true), 
+Question(text: "Do humans have gills?", answer: false), 
+    Question(text: "Is Pluto a planet?", answer: false), 
+    Question(text: "Was the Eiffel Tower built in the 19th century?", answer: true), 
+  ]; 
+ 
+  void checkAnswer(bool userAnswer) => setState(() => score += questions[index++].answer == 
+userAnswer ? 1 : 0); 
+ 
+  @override 
+  Widget build(BuildContext context) => Column( 
+        crossAxisAlignment: CrossAxisAlignment.stretch, 
+        children: [ 
+          Padding( 
+            padding: const EdgeInsets.only(top: 10.0), 
+            child: Center(child: Text(index < questions.length ? questions[index].text : "END", style: 
+TextStyle(fontSize: 25.0))), 
+          ), 
+          if (index < questions.length) 
+            for (var option in ['True', 'False']) ElevatedButton(onPressed: () => checkAnswer(option == 
+'True'), child: Text(option)), 
+          SizedBox(height: 100.0), 
+          for (var text in ['Your Score', '$score']) Padding(padding: EdgeInsets.all(30.0), child: 
+Center(child: Text(text, style: TextStyle(fontSize: 30.0)))), 
+        ], 
+      ); 
+}

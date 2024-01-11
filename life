@@ -1,0 +1,240 @@
+
+package com.example.alertcheckbox;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+public class MainActivity extends AppCompatActivity {
+CheckBox box1,box2,box3;
+Button click;
+ @Override
+ protected void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.activity_main);
+ box1=findViewById(R.id.spiderman);
+ box2=findViewById(R.id.wonderwoma);
+ box3=findViewById(R.id.choota);
+ click=findViewById(R.id.click);
+ click.setOnClickListener(new View.OnClickListener() {
+ @Override
+ public void onClick(View view) {
+ StringBuilder result= new StringBuilder();
+ result.append("Selected Items are:");
+ if(box1.isChecked()){
+ result.append("spiderman!!");
+ }
+ if(box2.isChecked()){
+ result.append("wonderwoman!!");
+ }
+ if(box3.isChecked())
+ {
+ result.append("choota bheem");
+ }
+ AlertDialog.Builder build = new 
+AlertDialog.Builder(MainActivity.this);
+ build.setTitle("your selections");
+ build.setMessage(result.toString());
+ build.setPositiveButton("OK",null);
+ AlertDialog dialog =build.create();
+ dialog.show();
+ }
+ });
+ }
+
+
+
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ xmlns:app="http://schemas.android.com/apk/res-auto"
+ xmlns:tools="http://schemas.android.com/tools"
+ android:layout_width="match_parent"
+ android:layout_height="match_parent"
+ android:orientation="vertical"
+ tools:context=".MainActivity">
+ <CheckBox
+ android:layout_width="250dp"
+ android:layout_height="50dp"
+ android:layout_marginTop="50dp"
+ android:text="spiderman"
+ android:id="@+id/spiderman"
+ />
+ <CheckBox
+ android:layout_width="250dp"
+ android:layout_height="50dp"
+ android:text="wonderwoman"
+ android:id="@+id/wonderwoma"
+ />
+ <CheckBox
+ android:layout_width="250dp"
+ android:layout_height="50dp"
+ android:text="ChotaBheem"
+ android:id="@+id/choota"
+ />
+ <Button
+ android:layout_width="match_parent"
+ android:layout_height="wrap_content"
+ android:text="click"
+ android:layout_marginTop="50dp"
+ android:id="@+id/click"
+ />
+</LinearLayout>
+
+
+
+
+web view
+Activity.java
+package com.example.webv;
+import android.os.Bundle;
+import android.webkit.WebView;
+import androidx.appcompat.app.AppCompatActivity;
+public class MainActivity extends AppCompatActivity {
+ private WebView webView;
+ @Override
+ protected void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.activity_main);
+ webView = findViewById(R.id.webvie);
+ // Load a web page in the WebView.
+ webView.loadUrl("https://www.bing.com");
+ }
+}
+
+
+XML
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ xmlns:app="http://schemas.android.com/apk/res-auto"
+ xmlns:tools="http://schemas.android.com/tools"
+ android:layout_width="match_parent"
+ android:layout_height="match_parent"
+ android:fitsSystemWindows="true"
+ tools:context=".MainActivity">
+ <WebView
+ android:id="@+id/webvie"
+ android:layout_width="match_parent"
+ android:layout_height="match_parent"/>
+</RelativeLayout>
+
+
+<uses-permission android:name="android.permission.INTERNET"/>
+
+
+
+
+image flipper
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ xmlns:app="http://schemas.android.com/apk/res-auto"
+ xmlns:tools="http://schemas.android.com/tools"
+ android:layout_width="match_parent"
+ android:layout_height="match_parent"
+ android:orientation="vertical"
+ tools:context=".MainActivity">
+ <ImageView
+ android:layout_width="match_parent"
+ android:layout_height="500dp"
+ android:src="@drawable/first"
+ android:id="@+id/img"
+ ></ImageView>
+ <Button
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:text="Change Image"
+ android:id="@+id/button"
+ android:layout_marginLeft="150dp">
+ </Button>
+</LinearLayout>
+package com.example.imageflipper;
+import androidx.appcompat.app.AppCompatActivity;
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+public class MainActivity extends AppCompatActivity {
+Button change;
+ImageView img;
+int flag =0;
+ @Override
+ protected void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.activity_main);
+ change = findViewById(R.id.button);
+ img = findViewById(R.id.img);
+ change.setOnClickListener(new View.OnClickListener() {
+ @Override
+ public void onClick(View view) {
+ if(flag == 0)
+ {
+ img.setImageResource(R.drawable.first);
+ flag = 1;
+ }
+ else {
+ img.setImageResource(R.drawable.second);
+ flag = 0;
+ }
+ }
+ });
+ }
+}
+
+
+
+activity life cycle
+
+
+
+package com.example.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        android.widget.Toast.makeText(this, "Activity created", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Toast.makeText(this, "activity started", Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toast.makeText(this, "activity resumed", Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Toast.makeText(this, "activity pausd", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Toast.makeText(this, "activity stopped", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Toast.makeText(this, "activity destroyed", Toast.LENGTH_SHORT).show();
+    }
+
+
+
+
+}

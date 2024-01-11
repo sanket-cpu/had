@@ -1,0 +1,143 @@
+package com.example.mediaplayer;
+import androidx.appcompat.app.AppCompatActivity;
+import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+public class MainActivity extends AppCompatActivity {
+Button play,pause,rewind,forward,stop,restart;
+MediaPlayer media;
+int starttime = 0;
+int stoptime = 0;
+int forwardtime = 5000;
+int backwardtime = 5000;
+ @Override
+ protected void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.activity_main);
+ play= findViewById(R.id.play);
+ pause = findViewById(R.id.pause);
+ stop = findViewById(R.id.stop);
+ rewind = findViewById(R.id.rewind);
+ forward = findViewById(R.id.forward);
+ restart = findViewById(R.id.restart);
+ play.setOnClickListener(new View.OnClickListener() {
+ @Override
+ public void onClick(View view) {
+ Toast.makeText(MainActivity.this,"Media Player playing 
+now", Toast.LENGTH_LONG).show();
+ media = MediaPlayer.create(MainActivity.this , 
+R.raw.paperrings);
+ media.start();
+ }
+ });
+ 
+ restart.setOnClickListener(new View.OnClickListener() {
+ @Override
+ public void onClick(View view) {
+ media.seekTo(starttime);
+ media.start();
+ }
+});
+ forward.setOnClickListener(new View.OnClickListener() {
+ @Override
+ public void onClick(View view) {
+ int currentpos = media.getCurrentPosition();
+ if((currentpos+forwardtime) <= (media.getDuration()))
+ {
+ media.seekTo(currentpos+forwardtime);
+ media.start();
+ }
+ }
+ });
+ pause.setOnClickListener(new View.OnClickListener() {
+ @Override
+ public void onClick(View view) {
+ Toast.makeText(MainActivity.this, "Pausing now ", 
+Toast.LENGTH_SHORT).show();
+ media.stop();
+ }
+ });
+ rewind.setOnClickListener(new View.OnClickListener() {
+ @Override
+ public void onClick(View view) {
+ int currentpos = media.getCurrentPosition();
+ if ((currentpos - backwardtime) >= (starttime))
+ {
+ media.seekTo(currentpos - backwardtime);
+ media.start();
+ }
+ }
+ });
+ }
+}
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ xmlns:app="http://schemas.android.com/apk/res-auto"
+ xmlns:tools="http://schemas.android.com/tools"
+ android:layout_width="match_parent"
+ android:layout_height="match_parent"
+ android:orientation="vertical"
+ android:background="@color/black"
+ tools:context=".MainActivity" >
+ <TextView
+ android:id="@+id/textView"
+ android:layout_width="match_parent"
+ android:layout_height="wrap_content"
+ android:text="SongPlayer"
+ android:layout_marginTop="50dp"
+ android:layout_gravity="center"
+ android:gravity="center"
+ android:textColor="@color/white"
+ android:fontFamily="cursive"
+ android:textSize="50sp" />
+ <Button
+ android:id="@+id/play"
+ android:layout_width="250dp"
+ android:layout_height="wrap_content"
+ android:text="Play"
+ android:layout_marginLeft="80dp"
+ android:layout_marginTop="50dp"
+ />
+ <Button
+ android:id="@+id/pause"
+ android:layout_width="250dp"
+ android:layout_height="wrap_content"
+ android:text="Pause"
+ android:layout_marginLeft="80dp"
+ android:layout_marginTop="50dp"
+ />
+ <Button
+ android:id="@+id/forward"
+ android:layout_width="250dp"
+ android:layout_height="wrap_content"
+ android:text="forward"
+ android:layout_marginLeft="80dp"
+ android:layout_marginTop="50dp"
+ />
+ <Button
+ android:id="@+id/rewind"
+ android:layout_width="250dp"
+ android:layout_height="wrap_content"
+ android:text="Rewind"
+ android:layout_marginLeft="80dp"
+ android:layout_marginTop="50dp"
+ />
+ <Button
+ android:id="@+id/stop"
+ android:layout_width="250dp"
+ android:layout_height="wrap_content"
+ android:text="Stop"
+ android:layout_marginLeft="80dp"
+ android:layout_marginTop="50dp"
+ />
+ <Button
+ android:id="@+id/restart"
+ android:layout_width="250dp"
+ android:layout_height="wrap_content"
+ android:text="Restart"
+ android:layout_marginLeft="80dp"
+ android:layout_marginTop="50dp"
+ />
+</LinearLayout>

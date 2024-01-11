@@ -1,0 +1,188 @@
+
+import 'package:flutter/material.dart'; 
+import 'package:assets_audio_player/assets_audio_player.dart'; 
+ 
+void main() { 
+  runApp(MaterialApp( 
+    home: Scaffold( 
+      appBar: AppBar(title: Text('XYLOPHONE'), centerTitle: true), 
+      body: XyloPage(), 
+    ), 
+  )); 
+} 
+ 
+class XyloPage extends StatelessWidget { 
+  void playSound(int noteNumber) => AssetsAudioPlayer.newPlayer().open( 
+    Audio('audios/note$noteNumber.wav'), 
+    autoStart: true, 
+    showNotification: true, 
+  ); 
+ 
+  Widget buildButton(Color color, int noteNumber, String label) => Expanded( 
+    child: TextButton( 
+      style: TextButton.styleFrom(backgroundColor: color), 
+      onPressed: () => playSound(noteNumber), 
+child: Text(label), 
+), 
+); 
+@override 
+Widget build(BuildContext context) => Column( 
+crossAxisAlignment: CrossAxisAlignment.stretch, 
+children: [ 
+buildButton(Colors.amberAccent, 1, 'first'), 
+buildButton(Colors.brown, 2, 'second'), 
+buildButton(Colors.yellow, 3, 'third'), 
+buildButton(Colors.green, 4, 'four'), 
+], 
+); 
+} 
+In app/gradle 
+DefautConfig{ 
+multiDexEnabled true 
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Setp 1 : Download the assets from xylophone using below link 
+
+https://github.com/londonappbrewery/xylophone-flutter
+
+
+Step 2 : Go to pubspec.yaml
+
+Put this below the cupertino_icons: ^1.0.2
+  
+assets_audio_player: ^3.1.1
+
+Sep 3 : Go to pubspec.yaml
+
+
+Put this below the uses-material-design: true
+
+assets:
+  - assets/
+
+Step 4 : Click on pub get in pubspec.yaml
+
+Step 5 : Click on get dependencies in main.Dart
+
+
+Optional 
+
+Step 6 : goto android, click on app,click on build.gradles
+
+Type multiDexEnabled true inside defaultConfig {
+
+
+
+
+
+
+Code :
+
+
+
+
+
+
+
+
+
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text('XYLOPHONE'),
+        centerTitle: true,
+      ),
+      body: XyloPage(),
+    ),
+  ));
+}
+
+class XyloPage extends StatefulWidget {
+  const XyloPage({super.key});
+
+  @override
+  State<XyloPage> createState() => _XyloPageState();
+}
+
+class _XyloPageState extends State<XyloPage> {
+  void playSound(int noteNumber){
+    AssetsAudioPlayer.newPlayer().open(
+      Audio('assets/note$noteNumber.wav'),
+      autoStart: true,
+      showNotification: true,
+    );
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(child: TextButton(
+          style: TextButton.styleFrom(
+              backgroundColor: Colors.amberAccent
+          ),
+          onPressed: (){
+            playSound(1);
+          },
+          child: Text('first'),
+        ),
+        ),
+        Expanded(child: TextButton(
+          style: TextButton.styleFrom(
+              backgroundColor: Colors.brown
+          ),
+          onPressed: (){
+            playSound(2);
+          },
+          child: Text('second'),
+        ),
+        ),
+        Expanded(child: TextButton(
+          style: TextButton.styleFrom(
+              backgroundColor: Colors.yellow
+          ),
+          onPressed: (){
+            playSound(3);
+          },
+          child: Text('third'),
+        ),
+        ),
+        Expanded(child: TextButton(
+          style: TextButton.styleFrom(
+              backgroundColor: Colors.green
+          ),
+          onPressed: (){
+            playSound(4);
+          },
+          child: Text('four'),
+        ),
+        ),
+      ],
+    );
+  }
+}
