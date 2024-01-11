@@ -256,48 +256,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
  @Override
  public void onClick(View view) {
  double finalResult = 0.0;
- switch(view.getId())
- {
- case R.id.one: result.append("1");
- break;
- case R.id.two: result.append("2");
- break;
- case R.id.three: result.append("3");
- break;
- case R.id.four: result.append("4");
- break;
- case R.id.five: result.append("5");
- break;
- case R.id.six: result.append("6");
- break;
- case R.id.seven: result.append("7");
- break;
- case R.id.eight: result.append("8");
- break;
- case R.id.nine: result.append("9");
- break;
- case R.id.zero: result.append("0");
- break;
- case R.id.plus: result.append("+");
- operatorPressed="+";
- break;
- case R.id.minus: result.append("-");
- operatorPressed="-";
- break;
- case R.id.multiply: result.append("*");
- operatorPressed="*";
- break;
- case R.id.divide: result.append("/");
- operatorPressed="/";
- break;
- case R.id.clear:result.setText(" ");
- break;
- case R.id.equal: finalResult=
- evaluateExpression(result.getText().toString(),operatorPressed);
- result.setText(String.valueOf(finalResult));
- break;
- default: return;
- }
+        if (view.getId() == R.id.one) {
+            res.append("1");
+        } else if (view.getId() == R.id.eight) {
+            res.append("8");
+        } else if (view.getId() == R.id.nine) {
+            res.append("9");
+        } else if (view.getId() == R.id.add) {
+            res.append("+");
+            operatorPressed = "+";
+        } else if (view.getId() == R.id.sub) {
+            res.append("-");
+            operatorPressed = "-";
+        } else if (view.getId() == R.id.mul) {
+            res.append("*");
+            operatorPressed = "*";
+        } else if (view.getId() == R.id.div) {
+            res.append("/");
+            operatorPressed = "/";
+        } else if (view.getId() == R.id.clear) {
+            res.setText(" ");
+        } else if (view.getId() == R.id.equals) {
+            finalResult = evaluateExpression(res.getText().toString(), operatorPressed);
+            res.setText(String.valueOf(finalResult));
+        }
+        else{
+            return ;
+        }
+
  }
  private double evaluateExpression(String res, String operatorPressed)
  {
